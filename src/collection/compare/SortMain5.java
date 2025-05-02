@@ -1,8 +1,6 @@
-package collection.compart;
+package collection.compare;
 
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.TreeSet;
 
 public class SortMain5 {

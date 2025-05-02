@@ -1,4 +1,4 @@
-package collection.compart;
+package collection.compare;
 
 public class MyUser implements Comparable<MyUser> {
 

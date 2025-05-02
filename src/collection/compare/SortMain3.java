@@ -1,4 +1,4 @@
-package collection.compart;
+package collection.compare;
 
 
 import java.util.Arrays;
