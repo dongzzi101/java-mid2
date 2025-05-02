@@ -10,7 +10,6 @@ public class MyArray implements Iterable<Integer> {
         this.numbers = numbers;
     }
 
-
     @Override
     public Iterator<Integer> iterator() {
         return new MyArrayIterator(numbers);
