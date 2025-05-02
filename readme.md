@@ -517,3 +517,69 @@ Deque(Double Ended Queue)는 양쪽에서 삽입/삭제 가능한 자료구조�
 | LinkedList    | 연결 리스트 기반                   | 느림        |
 
 ---
+
+## 섹션 11. 컬렉션 프레임워크 - 순회, 정렬, 전체 정리
+
+### 순회1 - 직접 구현하는 Iterable, Iterator
+
+- 순회는 자료구조 안의 데이터를 하나씩 꺼내서 처리하는 것
+- 자바는 자료구조와 무관하게 일관된 방식으로 순회할 수 있도록 `Iterable`, `Iterator` 인터페이스 제공
+
+```java
+public interface Iterable<T> {
+    Iterator<T> iterator();
+}
+
+public interface Iterator<E> {
+    boolean hasNext();
+    E next();
+}
+```
+
+- `hasNext()` : 다음 요소 있는지 확인
+- `next()` : 다음 요소 반환하고 내부 위치 이동
+
+### 순회2 - 향상된 for문
+
+- 향상된 for문을 쓰려면 대상이 **배열 또는 Iterable** 이어야 함
+
+### 순회3 - 자바가 제공하는 Iterable, Iterator
+
+- 자바 컬렉션 계층 구조 상 `Iterable`이 최상위 인터페이스
+- `List`, `Set`, `Queue` 전부 `Iterable` 상속 → 전부 향상된 for문이나 Iterator로 순회 가능
+- `Map`은 바로 순회 불가 → `keySet()`, `values()`, `entrySet()` 등을 통해 순회
+
+### Comparable, Comparator
+
+**정렬을 위한 두 가지 방법**
+
+| 구분 | 인터페이스 | 역할 | 적용 방식 |
+|------|-------------|------|------------|
+| 기본 정렬 | `Comparable<T>` | 객체 자기 자신과 비교 | 클래스 내부에 `compareTo()` 구현 |
+| 커스텀 정렬 | `Comparator<T>` | 두 객체 비교 | 정렬 시 외부에서 `compare()` 구현 전달 |
+
+- `compareTo()` (Comparable):
+  - this가 작으면 음수, 같으면 0, 크면 양수
+
+- `compare()` (Comparator):
+  - 첫 번째 인자가 작으면 음수, 같으면 0, 크면 양수
+
+- 예시:
+  ```java
+  Arrays.sort(array, new MyComparator());
+  list.sort(new MyComparator());
+  ```
+
+### 정렬3 - List 정렬 방법과 Tree 구조
+
+- 배열만이 아니라 순서가 있는 `List`도 정렬 가능
+- `Collections.sort(list)` 또는 `list.sort()` 사용
+- `list.sort(null)` → 객체가 구현한 `Comparable` 기준으로 정렬
+- `list.sort(new CustomComparator())` → 전달한 정렬 기준 우선
+
+**Tree 계열 (TreeSet, TreeMap) 특징**
+
+- 데이터를 저장할 때 자동으로 정렬됨
+- 내부 구조가 이진 탐색 트리이기 때문에 정렬 기준이 반드시 필요
+- 그래서 `Comparable` 또는 `Comparator` 중 하나를 반드시 제공해야 함
+
